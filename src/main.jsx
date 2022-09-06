@@ -7,7 +7,14 @@ const App = () => {
     )
 }
 
-const el = document.createElement('div')
-document.body.appendChild(el)
 
-ReactDOM.render(<App />, el);
+class XApp extends HTMLElement {
+    connectedCallback() {
+        const fragment = this.attachShadow({ mode: 'open' })
+        ReactDOM.render(<App />, fragment);
+    }
+}
+customElements.define('x-app', XApp);
+document.body.appendChild(document.createElement('x-app'))
+
+
