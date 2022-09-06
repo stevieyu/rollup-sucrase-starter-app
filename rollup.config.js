@@ -16,7 +16,7 @@ export default {
 	},
 	plugins: [
 		resolve({
-			extensions: ['.js', '.ts']
+			extensions: ['.js','.jsx', '.ts', '.tsx']
 		}), // tells Rollup how to find date-fns in node_modules
 		sucrase({
 			exclude: ['node_modules/**'],
