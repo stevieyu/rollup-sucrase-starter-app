@@ -1,5 +1,5 @@
 import resolve from '@rollup/plugin-node-resolve';
-//import commonjs from '@rollup/plugin-commonjs';
+import commonjs from '@rollup/plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
 import sucrase from '@rollup/plugin-sucrase';
 
@@ -8,7 +8,7 @@ import sucrase from '@rollup/plugin-sucrase';
 const production = !process.env.ROLLUP_WATCH;
 
 export default {
-	input: 'src/main.js',
+	input: 'src/main.jsx',
 	output: {
 		file: 'public/bundle.js',
 		format: 'es', // immediately-invoked function expression — suitable for <script> tags
@@ -16,13 +16,16 @@ export default {
 	},
 	plugins: [
 		resolve({
-			extensions: ['.js','.jsx', '.ts', '.tsx']
+			extensions: ['.js','.jsx', '.ts', '.ts']
 		}), // tells Rollup how to find date-fns in node_modules
+		commonjs({
+			include: ["node_modules/**"],
+		}), // converts date-fns to ES modules
 		sucrase({
-			exclude: ['node_modules/**'],
-			transforms: ['typescript']
+			//exclude: ['node_modules/**'],
+			transforms: ['typescript', 'imports', 'jsx', 'react-hot-loader']
 		}),
-		//commonjs(), // converts date-fns to ES modules
 		production && terser() // minify, but only in production
-	]
+	],
+	context: "window"
 };
