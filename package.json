@@ -17,6 +17,8 @@
     "build": "rollup -c",
     "watch": "rollup -c -w",
     "dev": "npm-run-all --parallel start watch",
-    "start": "serve public"
+    "start": "serve public",
+    "gh": "cp public/index.html public/404.html && npx -y gh-pages -d public -b gh-pages",
+    "pregh": "npm run build"
   }
 }

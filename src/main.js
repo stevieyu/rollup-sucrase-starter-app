@@ -2,7 +2,7 @@ import peer from './peer'
 
 const [,cid] = location.hash.match(/#(\w+)/) || []
 if(!cid) {
-    location.replace(`/#${peer._id}`);
+    location.replace(`${location.pathname+location.search}#${peer._id}`);
 }else if(cid && cid !== peer._id){
     const conn = peer.connect(cid);
     conn.on("open", () => {
