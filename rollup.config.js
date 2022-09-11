@@ -1,5 +1,5 @@
 import resolve from '@rollup/plugin-node-resolve';
-//import commonjs from '@rollup/plugin-commonjs';
+import commonjs from '@rollup/plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
 import sucrase from '@rollup/plugin-sucrase';
 
@@ -15,14 +15,14 @@ export default {
 		sourcemap: true
 	},
 	plugins: [
+		commonjs(), // converts date-fns to ES modules
 		resolve({
 			extensions: ['.js','.jsx', '.ts', '.tsx']
 		}), // tells Rollup how to find date-fns in node_modules
 		sucrase({
 			exclude: ['node_modules/**'],
-			transforms: ['typescript']
+			transforms: ['typescript', 'jsx']
 		}),
-		//commonjs(), // converts date-fns to ES modules
 		production && terser() // minify, but only in production
 	]
 };
