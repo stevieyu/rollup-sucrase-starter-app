@@ -7,19 +7,23 @@ if(!fpVisitorId) {
 }
 
 const peer = new Peer(fpVisitorId, {
-	debug: 3
+	debug: 3,
 });
 
 peer.on("connection", (conn) => {
-	console.log('connection');
+	console.error('connection');
 	conn.on("data", (data) => {
 		// Will print 'hi!'
 		console.log('data', data);
 	});
 	conn.on("open", () => {
-		console.log('connection open');
+		console.error('connection open');
 		conn.send("hello!");
 	});
 });
+
+peer.on("error", (error) => {
+	console.error(error)
+})
 
 export default peer

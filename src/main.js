@@ -1,13 +1,19 @@
 import peer from './peer'
 
-const [,cid] = location.hash.match(/#(\w+)/) || []
+await new Promise(resolve => peer.on('open', resolve))
+
+let [,cid] = location.hash.match(/#([\w-]+)/) || []
 if(!cid) {
     location.replace(`${location.pathname+location.search}#${peer._id}`);
-}else if(cid && cid !== peer._id){
+}else if(cid !== peer._id){
     const conn = peer.connect(cid);
     conn.on("open", () => {
-        console.log('open');
+        console.error('open');
         conn.send("hi!");
+    });
+    conn.on("data", (data) => {
+        // Will print 'hi!'
+        console.log('data', data);
     });
 }
 
