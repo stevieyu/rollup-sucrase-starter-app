@@ -6,6 +6,7 @@ if(!cid) {
 }else if(cid && cid !== peer._id){
     const conn = peer.connect(cid);
     conn.on("open", () => {
+        console.log('open');
         conn.send("hi!");
     });
 }

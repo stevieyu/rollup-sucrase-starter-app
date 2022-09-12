@@ -7,15 +7,17 @@ if(!fpVisitorId) {
 }
 
 const peer = new Peer(fpVisitorId, {
-    host: '1.peerjs.com'
+	debug: 3
 });
 
 peer.on("connection", (conn) => {
+	console.log('connection');
 	conn.on("data", (data) => {
 		// Will print 'hi!'
-		console.log(data);
+		console.log('data', data);
 	});
 	conn.on("open", () => {
+		console.log('connection open');
 		conn.send("hello!");
 	});
 });

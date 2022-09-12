@@ -2,18 +2,24 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
 import sucrase from '@rollup/plugin-sucrase';
+import html from '@web/rollup-plugin-html'
 
 // `npm run build` -> `production` is true
 // `npm run dev` -> `production` is false
 const production = !process.env.ROLLUP_WATCH;
 
 export default {
-	input: 'src/main.js',
+	input: 'src/index.html',
 	output: {
-		file: 'public/bundle.js',
-		format: 'es', // immediately-invoked function expression — suitable for <script> tags
-		sourcemap: true
+		entryFileNames: 'bundle/main.[hash].js',
+		chunkFileNames: 'bundle/chunk.[hash].[ext]',
+		format: 'esm', // immediately-invoked function expression — suitable for <script> tags
+		sourcemap: true,
+		dir: 'public'
 	},
+	external: [
+		'https://openfpcdn.io/fingerprintjs/v3'
+	],
 	plugins: [
 		commonjs(), // converts date-fns to ES modules
 		resolve({
@@ -23,6 +29,7 @@ export default {
 			exclude: ['node_modules/**'],
 			transforms: ['typescript', 'jsx']
 		}),
-		production && terser() // minify, but only in production
+		production && terser(), // minify, but only in production
+		html(),
 	]
 };
