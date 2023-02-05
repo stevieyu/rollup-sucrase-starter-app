@@ -12,15 +12,13 @@
     "serve": "^14.2.0"
   },
   "dependencies": {
-    "date-fns": "^2.29.3",
-    "peerjs": "^1.4.7"
+    "date-fns": "^2.29.3"
   },
   "scripts": {
     "build": "rm -rf dist/* && rollup -c",
     "watch": "rollup -c -w",
     "dev": "npm-run-all --parallel start watch",
     "start": "pnpx serve dist",
-    "peer": "pnpx peer --port 9000 --key peerjs --path /",
     "gh": "npm run build && cp dist/index.html dist/404.html && npx -y gh-pages -d public -b gh-pages"
   }
 }
