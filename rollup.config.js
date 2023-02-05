@@ -15,7 +15,7 @@ export default {
 		chunkFileNames: 'bundle/chunk.[hash].[ext]',
 		format: 'esm', // immediately-invoked function expression — suitable for <script> tags
 		sourcemap: true,
-		dir: 'public'
+		dir: 'dist'
 	},
 	external: [
 		'https://openfpcdn.io/fingerprintjs/v3'

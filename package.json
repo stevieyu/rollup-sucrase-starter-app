@@ -16,11 +16,11 @@
     "peerjs": "^1.4.7"
   },
   "scripts": {
-    "build": "rm -rf public/* && rollup -c",
+    "build": "rm -rf dist/* && rollup -c",
     "watch": "rollup -c -w",
     "dev": "npm-run-all --parallel start watch",
-    "start": "pnpx serve public",
-    "peer": "pnpx peer --port 9000 --key peerjs --path /myapp",
-    "gh": "npm run build && cp public/index.html public/404.html && npx -y gh-pages -d public -b gh-pages"
+    "start": "pnpx serve dist",
+    "peer": "pnpx peer --port 9000 --key peerjs --path /",
+    "gh": "npm run build && cp dist/index.html dist/404.html && npx -y gh-pages -d public -b gh-pages"
   }
 }
